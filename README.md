@@ -6,7 +6,11 @@
 
 This template is designed to help students prepare academic documents that comply with the university's formatting standards, covering margin settings, typefaces (including Arabic script), automatic page numbering, and structured bibliography management.
 
-> **Note:** This repository is a **fork** of the original UNIDA Gontor LaTeX template. See the [Fork & Credits](#-fork--credits) section for attribution.
+> **Note:** This repository is a **fork** of the original UNIDA Gontor LaTeX template. The maintained copy lives at **[jaweed3/latex-thesis-unida](https://github.com/jaweed3/latex-thesis-unida)**. See the [Fork & Credits](#-fork--credits) section for attribution.
+
+```bash
+git clone https://github.com/jaweed3/latex-thesis-unida.git
+```
 
 ---
 
@@ -104,17 +108,18 @@ xelatex main.tex
 
 ## 🌱 Fork & Credits
 
-This repository is a **fork** of the original UNIDA Gontor LaTeX thesis template, maintained here by [`jaweed3`](https://github.com/jaweed3) for personal use and further customization.
+This repository is a **fork** of the original UNIDA Gontor LaTeX thesis template. The maintained copy is **[jaweed3/latex-thesis-unida](https://github.com/jaweed3/latex-thesis-unida)**, maintained by [`jaweed3`](https://github.com/jaweed3) for personal use and further customization.
 
 ### Original Author
 
 - **Muhammad Dafi Al Haq** — Student of the Informatics Engineering Program, Faculty of Science and Technology, Universitas Darussalam Gontor.
 - **Muhammad Rizqi Cahyono** — Student of the Informatics Engineering Program, Faculty of Science and Technology, Universitas Darussalam Gontor.
-  Original repository: _(https://github.com/PPTIK-UNIDA-Gontor/latex-thesis-unida)_
+  Original repository: **[PPTIK-UNIDA-Gontor/latex-thesis-unida](https://github.com/PPTIK-UNIDA-Gontor/latex-thesis-unida)**
 
 ### Fork Maintainer
 
 - **[`jaweed3`](https://github.com/jaweed3)** — Fork maintainer; responsible for the English translation, structural adjustments, and any additions made in this copy.
+  Fork repository: **[jaweed3/latex-thesis-unida](https://github.com/jaweed3/latex-thesis-unida)**
 
 If you use this template, please consider crediting the **original author** above, as the core formatting, layout, and configuration were their work.
 
@@ -122,4 +127,4 @@ If you use this template, please consider crediting the **original author** abov
 
 ### ✍️ Contributing
 
-Contributions, fixes, and improvements to _this fork_ are welcome via Pull Requests. For changes that benefit the upstream project, please also open an issue/PR against the [original repository](.) so the broader community can benefit.
+Contributions, fixes, and improvements to _this fork_ are welcome via Pull Requests. For changes that benefit the upstream project, please also open an issue/PR against the [original repository](https://github.com/PPTIK-UNIDA-Gontor/latex-thesis-unida) so the broader community can benefit.
