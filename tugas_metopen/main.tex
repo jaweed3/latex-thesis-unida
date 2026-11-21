@@ -1,0 +1,103 @@
+\documentclass[12pt,a4paper]{article}
+
+% ---------- FONT & BAHASA ----------
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{
+  \setmainfont{Times New Roman}
+}{
+  \setmainfont{TeX Gyre Termes}
+}
+\usepackage[indonesian]{babel}
+\usepackage{csquotes}
+\DeclareQuoteStyle{indonesian}
+  {\textquotedblleft}{\textquotedblright}
+  {\textquoteleft}{\textquoteright}
+
+% ---------- LAYOUT & MATEMATIKA ----------
+\usepackage[a4paper,margin=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\setlength{\emergencystretch}{2em}
+
+% ---------- BIBLIOGRAFI ----------
+\usepackage[style=authoryear,backend=bibtex,maxcitenames=2]{biblatex}
+\DeclareLanguageMapping{indonesian}{english}
+\DefineBibliographyStrings{indonesian}{
+  and          = {dan},
+  andothers    = {dkk\adddot},
+  in           = {dalam},
+  pages        = {hlm\adddot},
+  page         = {hlm\adddot},
+  bibliography = {Daftar Pustaka},
+}
+\addbibresource{referensi.bib}
+
+% ---------- HYPERLINK ----------
+\usepackage[hidelinks]{hyperref}
+
+\begin{document}
+
+\begin{center}
+    {\Large\bfseries LATAR BELAKANG PENELITIAN}\\[0.5em]
+    {\normalsize Tugas Pertemuan ke-10 Metodologi Penelitian}\\[0.3em]
+    {\small\textbf{Fatih Jawwad Al Mumtaz} (NIM: 432022611076)}\\
+    {\small Program Studi Teknik Informatika, Fakultas Sains dan Teknologi}\\
+    {\small Universitas Darussalam Gontor}
+\end{center}
+\vspace{1em}
+
+% 1. Objek penelitian (deskripsikan kondisi saat ini)
+\textbf{1. Objek Penelitian (Kondisi Saat Ini).} 
+Beras (\textit{Oryza sativa L.}) merupakan komoditas pangan pokok paling strategis di Indonesia yang dikonsumsi oleh lebih dari 90\% populasi dengan rata-rata konsumsi mencapai 95 kg/kapita/tahun \autocite{bps2024}. Standar mutu beras giling diatur secara resmi oleh Badan Standardisasi Nasional melalui SNI 6128:2020 yang menetapkan parameter fisik ketat: beras Premium mensyaratkan beras kepala minimal 95\%, butir patah maksimal 5\%, butir mengapur maksimal 0\%, dan benda asing mutlak 0\%; sedangkan beras Medium I menetapkan batas toleransi beras kepala minimal 78\%, butir patah maksimal 20\%, butir mengapur maksimal 2\%, dan benda asing maksimal 0,02\% \autocite{bsn2020sni}. Kendati demikian, pada tingkat penggilingan padi rakyat (\textit{Rice Milling Unit}/RMU) di pedesaan, proses sortasi dan penentuan mutu hingga saat ini masih didominasi oleh inspeksi visual manual menggunakan mata telanjang dan perabaan tangan. Berdasarkan kajian empiris \textcite{zareiforoush2015}, metode konvensional ini terbukti tidak efisien, sangat lambat, bersifat subjektif, serta memiliki variabilitas tinggi akibat kelelahan visual pengamat (\textit{analyst visual fatigue}). Kondisi lapangan ini menimbulkan asimetri informasi antara pedagang perantara dan produsen, yang berujung pada penetapan potongan harga sepihak (\textit{price discount}) yang merugikan posisi tawar petani kecil.
+
+% 2. Metode - metode / solusi yang ada
+\textbf{2. Metode/Solusi yang Ada.} 
+Guna menggantikan inspeksi manual, literatur visi komputer pada era awal menerapkan ekstraksi fitur tekstur \textit{Gray-Level Co-occurrence Matrix} (GLCM) berbasis parameter statistik spasial seperti \textit{contrast}, \textit{correlation}, \textit{energy}, dan \textit{homogeneity} \autocite{haralick1973}, yang kemudian dipadukan dengan algoritma \textit{Support Vector Machine} (SVM) untuk mendeteksi derajat pengapuran dan cacat beras \autocite{sun2019chalkiness}. Memasuki era pembelajaran mendalam (\textit{Deep Learning}), representasi fitur visual beralih ke arsitektur \textit{Convolutional Neural Networks} (CNN) dan \textit{Vision Transformer} \autocite{chen2024swin}. Sebagai tolok ukur standar terkini, \textcite{fan2023grainset} dalam publikasi \textit{Nature Scientific Data} merilis basis data berskala global \textit{GrainSet} yang memuat 31.000 citra butir beras beresolusi tinggi dengan delapan kelas anotasi mutu visual, serta menetapkan model \textit{Squeeze-and-Excitation ResNet-50} (SE-ResNet50) sebagai \textit{baseline} dengan capaian akurasi pengujian 95,70\% dan Macro F1-score 91,90\%.
+
+% 3. Kelebihan dan kelemahan solusi/metode yang ada
+\textbf{3. Kelebihan dan Kelemahan Solusi.} 
+Metode ekstraksi fitur tradisional (GLCM dan SVM) memiliki kelebihan beban komputasi yang ringan pada CPU standar, namun kelemahannya terletak pada rendahnya daya generalisasi terhadap variasi varietas dan dinamika pencahayaan lapangan, dengan akurasi pengenalan yang kerap berada di bawah 85\%. Sebaliknya, metode \textit{Deep Learning} modern (SE-ResNet50) unggul dalam hal akurasi di atas 95\%, namun memiliki kelemahan mendasar berupa profil komputasi yang sangat masif (\textit{heavyweight}). Model SE-ResNet50 memiliki 26,1 juta parameter, kompleksitas komputasi mencapai $\sim$4,1 GFLOPs, dan ukuran berkas bobot 32-bit \textit{floating-point} (FP32) sebesar 98,4 MB, sehingga membutuhkan alokasi memori dan daya komputasi kartu grafis (GPU) server berdaya ratusan Watt. Sebaliknya, model ringan seperti MobileNetV4-Conv-Small hanya membutuhkan 3,77 juta parameter dan 0,24 GFLOPs (Tabel~\ref{tab:model_comparison}). Mengingat inferensi berbasis komputasi awan (\textit{cloud}) mensyaratkan bandwidth stabil dan biaya sewa server yang kontinu—dua hal yang tidak dapat dijamin di lumbung padi pedesaan—penelitian ini menetapkan eksekusi luring pada perangkat (\textit{on-device offline}) sebagai batasan desain (\textit{design constraint}) mutlak.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Perbandingan Metrik Arsitektur Baseline dan Model Kandidat Ringan}
+\label{tab:model_comparison}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrl}
+\toprule
+\textbf{Arsitektur Model} & \textbf{Params (M)} & \textbf{FLOPs (G)} & \textbf{Ukuran FP32} & \textbf{Akurasi Beras} & \textbf{Peran dalam Riset} \\
+\midrule
+SE-ResNet50 & 26,10 & 4,10 & 98,4 MB & 96,42\% & Baseline Acuan \autocite{fan2023grainset} \\
+EfficientNet-B0 & 4,02 & 0,39 & 16,2 MB & 95,71\% & Model Pembanding \autocite{tan2019efficientnet} \\
+\textbf{MobileNetV4-Conv-S} & \textbf{3,77} & \textbf{0,24} & \textbf{9,6 MB} & \textbf{95,23\%} & \textbf{Model Usulan Inti \autocite{qin2024mobilenetv4}} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+% 4. Masalah penelitian pada metode yang dipilih
+\textbf{4. Masalah Penelitian.} 
+Kesenjangan penelitian (\textit{research gap}) yang dihadapi adalah belum tersedianya sistem klasifikasi mutu beras yang mampu mempertahankan akurasi tinggi (>95\%) pada platform gawai pintar (\textit{smartphone}) Android. Pemilihan smartphone sebagai platform target didasari oleh tiga pertimbangan: (i) \textit{ekonomi dan adopsi}, di mana smartphone telah dimiliki oleh operator RMU dan petani sehingga biaya marginal adopsi perangkat keras mendekati nol dibanding perangkat \textit{edge} khusus (seperti Raspberry Pi atau Jetson); (ii) \textit{kematangan teknis}, di mana prosesor ARM seluler modern mendukung inferensi integer INT8 terakselerasi via ONNX Runtime Mobile dengan latensi rendah pada kisaran 3--5 ms; dan (iii) \textit{rekayasa adaptif}, yang memungkinkan model berjalan luring pada spesifikasi gawai minimum (Android 10+, arsitektur ARM64, RAM $\ge$ 3 GB). Masalah penelitian ini diperumit oleh karakteristik \textit{severe class imbalance} pada dataset GrainSet, yang terdiri atas $\sim$65\% butir Normal, 29\% butir cacat/rusak (\textit{Damaged \& Unsound}/DU grains yang terdistribusi ke beberapa kelas cacat minoritas berkisar 4--8\% per kelas), dan 6\% kotoran (\textit{impurities}). Efek metodologis dari ketimpangan ini adalah terjadinya inflasi semu pada akurasi keseluruhan (\textit{accuracy paradox}), di mana prediksi acak ke kelas mayoritas dapat menghasilkan akurasi $\sim$65\%; sehingga \textbf{Macro F1-score} mutlak menjadi metrik evaluasi primer. Selain itu, gradien fungsi \textit{cross-entropy} standar cenderung mengabaikan kelas minoritas dengan distingsi visual mikroskopis (\textit{fine-grained}), seperti butir berkecambah (\textit{sprouted}) dan butir mengapur awal (\textit{fusarium}).
+
+% 5. Solusi / usulan perbaikan metode
+\textbf{5. Solusi/Usulan Perbaikan Metode.} 
+Untuk mengatasi permasalahan tersebut, penelitian ini mengusulkan penerapan arsitektur konvolusi \textit{ultra-lightweight} generasi terbaru, yaitu \textbf{MobileNetV4-Conv-Small} \autocite{qin2024mobilenetv4}, yang dipadukan dengan teknik kompresi \textit{Post-Training Integer Quantization} (PTQ INT8) \autocite{jacob2018quantization}. MobileNetV4-Conv-Small dipilih secara teoretis karena memanfaatkan blok \textit{Universal Inverted Bottleneck} (UIB) berbasis konvolusi murni yang meminimalkan \textit{Memory Access Cost} (MAC) tanpa dependensi modul atensi berat. Pemilihan PTQ INT8 ketimbang \textit{Quantization-Aware Training} (QAT) didasarkan pada efisiensi rekayasa tanpa siklus latih ulang penuh yang rentan instabilitas gradien pada kelas minoritas, keselarasan langsung dengan alur ekspor--kalibrasi ONNX Runtime Mobile, serta pembuktian empiris atas batas retensi representasi fitur laten kelas minoritas saat model dipadatkan hingga berukuran 2,6 MB (reduksi 97,3\%). Model dieksekusi secara luring pada aplikasi Android, di mana delapan kelas luaran dipetakan secara terstruktur melalui modul \textit{Taxonomy Mapping} ke dalam parameter SNI 6128:2020: kelas Normal dipetakan ke butir utuh (syarat Premium $\ge 95\%$), kelas Broken ke butir patah (syarat Premium $\le 5\%$), kelas Fusarium dan Unripe ke butir mengapur (syarat Premium 0\%), kelas Moldy ke butir berjamur/rusak, serta kelas Impurities ke benda asing (syarat Premium mutlak 0\%).
+
+% 6. Rangkuman tujuan penelitian
+\textbf{6. Rangkuman Tujuan Penelitian.} 
+Tujuan penelitian ini dirumuskan sebagai berikut: (1) melatih dan mengevaluasi arsitektur MobileNetV4-Conv-Small pada dataset GrainSet di bawah kondisi ketimpangan kelas ekstrem; (2) membandingkan performa efisiensi parameter, FLOPs, akurasi, dan Macro F1-score terhadap baseline SE-ResNet50 dan EfficientNet-B0; (3) menguji pengaruh kompresi PTQ INT8 terhadap penurunan ukuran berkas dan latensi inferensi pada CPU ARM gawai bergerak; serta (4) membangun purwarupa aplikasi Android luring yang mampu menyajikan kalkulasi persentase mutu beras secara otomatis selaras dengan ambang toleransi SNI 6128:2020.
+
+% 7. Unsur islamisasi (5 maqasid syariah)
+\textbf{7. Unsur Islamisasi (Maqashid Syariah).} 
+Penelitian ini berakar pada pandangan hidup Islam (\textit{Islamic Worldview}) yang memandang sains dan teknologi sebagai sarana mewujudkan kemaslahatan publik (\textit{maslahah 'ammah}), di mana prinsip \textit{Maqashid al-Syari'ah} dijadikan sebagai lensa normatif evaluasi teknis \autocite{syathibi1997, zarkasyi2013}. Dalam kerangka pemeliharaan harta (\textit{Hifz al-Mal}), teknologi Edge AI ini berfungsi meniadakan asimetri informasi dan praktik manipulasi mutu (\textit{tatfif}) yang dilarang keras dalam QS. Al-Muthaffifin [83]: 1--3 serta mencegah transaksi yang mengandung \textit{gharar}, demi melindungi hak ekonomi petani atas potongan harga sepihak (\textit{la tadhlimuna wa la tudhlamun}, QS. Al-Baqarah [2]: 279). Dalam kerangka pemeliharaan jiwa (\textit{Hifz an-Nafs}), model ini memberikan prioritas bobot uji (\textit{safety-critical recall}) pada deteksi butir berpenyakit \textit{Fusarium} dan \textit{Moldy} yang berisiko memproduksi mikotoksin karsinogenik (Aflatoksin), sehingga menjamin terpenuhinya kriteria pangan yang tidak hanya halal tetapi juga \textit{thayyib} (aman dan sehat) sesuai QS. Al-Baqarah [2]: 168. Rekayasa kompresi model hingga 2,6 MB di smartphone murah merefleksikan kaidah fikih \textit{Raf'ul Haraj} (meniadakan kesulitan), sehingga teknologi penjamin mutu pangan ini dapat diakses secara merata dan berkeadilan oleh masyarakat pedesaan.
+
+\newpage
+\printbibliography
+
+\end{document}
