@@ -1,36 +1,58 @@
 \chapter{INTRODUCTION}
 	\section{Research Background}
 	\setlength{\leftskip}{0.7cm}
-	\lipsum
+	
+	Rice (\textit{Oryza sativa L.}) is one of the most critical agricultural staple foods globally, serving as the primary source of calories and daily sustenance for over 50\% of the global population, particularly in Southeast Asia and Indonesia. Ensuring the quality of post-harvest milled rice is essential to safeguarding food security, fair market pricing, and consumer health. In Indonesia, the quality standards for milled rice are formally governed by the National Standardization Agency (\textit{Badan Standardisasi Nasional} - BSN) through \textit{Standar Nasional Indonesia} (SNI) 6128:2020 \cite{bsn2020sni}. Under SNI 6128:2020, rice is graded into specific quality classes—namely Premium (Mutu 1), Medium (Mutu 2), and Substandard—based on stringent tolerance thresholds for head rice, broken kernels, chalky/unripe kernels, damaged kernels (such as fungal infection or pest attacks), and foreign matter or impurities.
+	
+	Despite the existence of clear regulatory standards, the prevailing quality assessment methods employed across rural Rice Milling Units (RMU) and local agricultural warehouses in Indonesia remain overwhelmingly manual. Inspectors and mill operators visually scrutinize grain samples using bare human eyes and manual tactile inspection. This conventional practice exhibits major shortcomings: it is subjective, slow, prone to human visual fatigue, and suffers from significant inter-observer variability. As a consequence, smallholder farmers frequently suffer from arbitrary price penalties imposed by intermediary traders, while consumers receive inconsistent rice quality.
+	
+	Recent advances in computer vision and deep learning have demonstrated remarkable potential in automating agricultural grain quality inspection. A notable milestone is the GrainSet benchmark published by Fan et al. \cite{fan2023grainset} in \textit{Nature Scientific Data}, which established a comprehensive dataset of over 350,000 single-kernel cereal images, including 31,000 high-resolution images dedicated specifically to rice kernel inspection across eight distinct quality categories: Normal, Fusarium-damaged, Sprouted, Moldy, Pest-attacked, Broken, Unripe, and Impurities. To establish a classification benchmark, Fan et al. implemented a Squeeze-and-Excitation ResNet-50 (SE-ResNet50) architecture, achieving a test accuracy of 95.70\% and a Macro F1-score of 91.90\%.
+	
+	However, a critical research gap emerges between laboratory deep learning benchmarks and practical, real-world deployment in the agricultural sector. The baseline SE-ResNet50 model contains approximately 26.1 million parameters and produces a 32-bit floating-point (FP32) model file exceeding 98 MB. Operating such heavy deep neural networks requires high-end server-grade Graphics Processing Units (GPUs). In the context of Indonesian rural farming communities, relying on centralized cloud-based inference is fundamentally unviable due to unstable cellular connectivity, bandwidth latency, and ongoing cloud server operational costs.
+	
+	To bridge this divide, this research explores an on-device Edge Artificial Intelligence (Edge AI) paradigm for offline mobile smartphones. Instead of deploying cumbersome server models, recent breakthroughs in lightweight mobile architectures—such as MobileNetV4 introduced by Google \cite{qin2024mobilenetv4}, EfficientNet \cite{tan2019efficientnet}, and MobileNetV3 \cite{howard2019mobilenetv3}—offer high representational capacity with drastically reduced parameter footprints. Furthermore, post-training integer quantization (PTQ INT8) pioneered by Jacob et al. \cite{jacob2018quantization} allows neural network weights and activations to be compressed into 8-bit integers, reducing memory consumption by over 70\% while enabling ultra-fast integer arithmetic on ARM mobile processors.
+	
+	By optimizing and compressing deep learning architectures on the GrainSet rice dataset, this study successfully demonstrates that a lightweight model—specifically MobileNetV4-Small—can achieve a test accuracy of 95.23\% and a Macro F1-score of 92.19\% (a marginal difference of only 1.19\% compared to the 26.1M baseline), while compressing the model size down to 2.6 MB through INT8 quantization (a 97.3\% total memory reduction). This enables instant, offline, and standardized rice grain quality inspection directly within the palm of farmers' and millers' hands via entry-level Android smartphones.
 	
 	\section{Statement of the Problem}
-	Based on the background described above, the research problems can be formulated as follows:
+	Based on the background described above, the research problems are formulated as follows:
 	
 	\begin{secenumerate}
-		\item problem 1.
-		\item problem 2.
-		\item problem 3..
+		\item How can lightweight deep learning architectures (MobileNetV4, EfficientNet-B0, MobileNetV3-Large, and EdgeNeXt-XSmall) be adapted and trained to effectively classify the eight surface quality classes of rice kernels in the presence of severe class imbalance?
+		\item What is the comparative performance between the heavy baseline model (SE-ResNet50) and candidate lightweight models in terms of parameter efficiency, classification accuracy, Macro F1-score, and computational resource consumption?
+		\item To what extent does Post-Training INT8 Quantization (PTQ) compress the model footprint and affect classification accuracy and inference latency for on-device mobile Edge AI execution?
+		\item How can the optimized lightweight model be integrated into an offline, on-device mobile application pipeline to deliver practical rice quality assessment in accordance with SNI 6128:2020 standards?
 	\end{secenumerate}
 	
-	\section{Research Objectivesy}
-	The purpose of this study is to obtain answers to the research problems formulated above. Therefore, the objectives of this research are as follows:
+	\section{Research Objectives}
+	The primary objectives of this research are as follows:
 	\begin{secenumerate}
-		\item objective 1.
-		\item objective 2.
-		\item objective 3.
+		\item To train, evaluate, and benchmark multiple lightweight deep learning architectures (MobileNetV4-Small, EfficientNet-B0, MobileNetV3-Large, and EdgeNeXt-XSmall) on the 31,000 images of the GrainSet Rice dataset.
+		\item To establish a rigorous empirical comparison against the SE-ResNet50 baseline, identifying the Pareto-optimal architecture that balances high Macro F1-score with minimal parameter count.
+		\item To apply and evaluate Post-Training INT8 Quantization (PTQ) on the optimal lightweight model, measuring the resulting memory compression ratio, latency improvement, and prediction stability.
+		\item To design the architectural framework for an offline mobile application that captures rice grain images and automatically produces quality assessment summaries aligned with SNI 6128:2020.
 	\end{secenumerate}
 	
+	\section{Research Scope and Limitations}
+	To maintain focused and rigorous inquiry, the scope of this research is delineated as follows:
+	\begin{secenumerate}
+		\item \textbf{Dataset Scope}: The research focuses exclusively on the Rice kernel subset of the GrainSet database, comprising 31,000 images across eight annotated classes (Normal, Fusarium, Sprouted, Moldy, Pest-attacked, Broken, Unripe, and Impurities).
+		\item \textbf{Model Scope}: Candidate architectures are constrained to edge-compatible convolutional and hybrid models (MobileNetV4-Small, EfficientNet-B0, MobileNetV3-Large, and EdgeNeXt-XSmall) compared against the benchmark SE-ResNet50.
+		\item \textbf{Compression Scope}: Model optimization emphasizes Post-Training Dynamic Quantization (PTQ) converting FP32 weights to INT8 via the ONNX Runtime ecosystem.
+		\item \textbf{Deployment Target}: The target execution environment is offline on-device mobile inference (Android/ARM architecture) operating without dependence on cloud servers or internet connectivity.
+	\end{secenumerate}
+
 	\section{Research Benefits}
-	Based on the research objectives explained above, the author hopes that this study can provide benefits and usefulness in two aspects:
+	The anticipated contributions of this research encompass both theoretical and practical dimensions:
 	\begin{secenumerate}
-		\item Theoretical Benefits.
+		\item \textbf{Theoretical Benefits}:
 		\begin{secenumerate}
-			\item \lipsum[1]
-			\item \lipsum[1]
+			\item Contributing empirical evidence on the behavior, convergence, and robustness of modern ultra-lightweight architectures (specifically MobileNetV4) under extreme agricultural class imbalance.
+			\item Providing quantitative analysis on the trade-offs between floating-point precision (FP32) and integer quantization (INT8) for fine-grained morphological cereal grain inspection.
 		\end{secenumerate}
-		\item Practical Benefits.
+		\item \textbf{Practical Benefits}:
 		\begin{secenumerate}
-			\item \lipsum[1]
-			\item \lipsum[1]
+			\item Offering an accessible, low-cost, and instant diagnostic tool for smallholder farmers and local rice mill operators to assess rice quality objectively without expensive laboratory hardware.
+			\item Promoting equitable pricing and transparency in post-harvest grain transactions by democratizing adherence to SNI 6128:2020 national standards.
 		\end{secenumerate}
 	\end{secenumerate}
