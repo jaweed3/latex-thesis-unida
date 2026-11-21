@@ -1,103 +1,125 @@
-# Template Skripsi dan Proposal Tugas Akhir - Universitas Darussalam Gontor (LaTeX)
+# Thesis and Final Project Proposal Template — Universitas Darussalam Gontor (LaTeX)
 
 ![LaTeX](https://img.shields.io/badge/Language-LaTeX-008080?style=flat-square&logo=latex&logoColor=white)
 ![Engine](https://img.shields.io/badge/Engine-XeLaTeX-be2d2d?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)
 
-Template ini dikembangkan untuk memfasilitasi mahasiswa dalam menyusun dokumen akademis yang sesuai dengan standar format universitas, meliputi pengaturan margin, jenis huruf (termasuk aksara Arab), penomoran halaman otomatis, serta manajemen daftar pustaka yang terstruktur.
+This template is designed to help students prepare academic documents that comply with the university's formatting standards, covering margin settings, typefaces (including Arabic script), automatic page numbering, and structured bibliography management.
+
+> **Note:** This repository is a **fork** of the original UNIDA Gontor LaTeX template. See the [Fork & Credits](#-fork--credits) section for attribution.
 
 ---
 
-## 📋 Fitur Utama
+## 📋 Key Features
 
-Template ini telah dikonfigurasi untuk memenuhi kebutuhan penulisan akademis, antara lain:
+This template is preconfigured to meet academic writing requirements, including:
 
-* **Kesesuaian Format:** Tata letak halaman, margin, dan penggunaan *font* Times New Roman telah disesuaikan dengan pedoman penulisan skripsi UNIDA Gontor.
-* **Dukungan Bahasa Arab:** Menggunakan *engine* XeLaTeX dan paket `polyglossia` untuk penulisan ayat Al-Qur'an dan teks Arab (font *Amiri*) yang presisi.
-* **Otomatisasi Dokumen:** Daftar Isi, Daftar Gambar, dan Daftar Tabel dihasilkan secara otomatis.
-* **Manajemen Referensi:** Integrasi dengan `BibLaTeX` menggunakan gaya sitasi *Chicago Manual of Style* (Catatan Kaki/Footnote) sesuai standar kampus.
-
----
-
-## 💻 Prasyarat Sistem
-
-Untuk menggunakan template ini, pastikan perangkat komputer Anda telah terinstal perangkat lunak berikut:
-
-| Perangkat Lunak | Windows | Linux | Fungsi |
-| :--- | :--- | :--- | :--- |
-| **LaTeX Distribution** | [MiKTeX](https://miktex.org/download) | TeX Live (`texlive-full`) | Mesin kompilasi utama dokumen LaTeX. |
-| **Teks Editor** | [TeXstudio](https://www.texstudio.org/) | VS Code / Neovim | Lingkungan pengembangan (IDE) untuk menulis kode. |
-| **Reference Manager** | [Zotero](https://www.zotero.o:rg/) | Zotero | Manajemen basis data daftar pustaka (*bibliography*). |
-
-> **Catatan:** Pengguna Windows disarankan untuk mengaktifkan opsi *"Install missing packages on-the-fly"* pada pengaturan MiKTeX untuk mengunduh paket yang diperlukan secara otomatis.
+- **Format Compliance:** Page layout, margins, and Times New Roman typeface are aligned with the UNIDA Gontor thesis writing guidelines.
+- **Arabic Language Support:** Uses the XeLaTeX engine and the `polyglossia` package to render Qur'anic verses and Arabic text (Amiri font) with precision.
+- **Document Automation:** Table of Contents, List of Figures, and List of Tables are generated automatically.
+- **Reference Management:** Integrated with `BibLaTeX` using the _Chicago Manual of Style_ citation style (footnotes) per university standards.
 
 ---
 
-## 📂 Struktur Direktori
+## 💻 System Requirements
 
-Pengguna hanya perlu menyunting file pada direktori tertentu sesuai dengan bagian naskah yang dikerjakan. Berikut adalah struktur direktori proyek:
+Before using this template, make sure your machine has the following software installed:
+
+| Software               | Windows                                 | Linux                     | Purpose                                         |
+| :--------------------- | :-------------------------------------- | :------------------------ | :---------------------------------------------- |
+| **LaTeX Distribution** | [MiKTeX](https://miktex.org/download)   | TeX Live (`texlive-full`) | Core LaTeX compilation engine.                  |
+| **Text Editor**        | [TeXstudio](https://www.texstudio.org/) | VS Code / Neovim          | Development environment (IDE) for writing code. |
+| **Reference Manager**  | [Zotero](https://www.zotero.org/)       | Zotero                    | Bibliography database management.               |
+
+> **Note:** Windows users are advised to enable the _"Install missing packages on-the-fly"_ option in MiKTeX settings so required packages are downloaded automatically.
+
+---
+
+## 📂 Directory Structure
+
+You only need to edit files in specific directories depending on which part of the manuscript you're working on. The project structure is as follows:
 
 ```text
-📁 THESIS (atau PROPOSAL)
-├── 📄 main.tex                <-- File Induk (Jalankan kompilasi dari file ini)
-├── 📄 references.bib          <-- Basis data daftar pustaka (Ekspor dari Zotero)
-├── 📁 frontmatter/            <-- Bagian Awal Dokumen
-│   ├── cover.tex              (Halaman Judul/Sampul)
-│   ├── authorization.tex      (Lembar Pengesahan)
-│   ├── abstract.tex           (Abstrak)
+📁 THESIS (or PROPOSAL)
+├── 📄 main.tex                <-- Root file (compile from this file)
+├── 📄 references.bib          <-- Bibliography database (exported from Zotero)
+├── 📁 frontmatter/            <-- Document Front Matter
+│   ├── cover.tex              (Title/Cover Page)
+│   ├── authorization.tex      (Approval Sheet)
+│   ├── abstract.tex           (Abstract)
 │   └── ...
-└── 📁 mainmatter/             <-- Bagian Isi Naskah
-    ├── chapter-1.tex          (Bab I: Pendahuluan)
-    ├── chapter-2.tex          (Bab II: Tinjauan Pustaka)
-    └── ...dst
+└── 📁 mainmatter/             <-- Document Main Content
+    ├── chapter-1.tex          (Chapter I: Introduction)
+    ├── chapter-2.tex          (Chapter II: Literature Review)
+    └── ...etc
 ```
 
 ---
 
-```text
+## ⚙️ Compilation Guide
 
-## ⚙️ Panduan Kompilasi
-Karena template ini menggunakan BibLaTeX dan Polyglossia, urutan proses kompilasi (build sequence) sangat krusial untuk menghasilkan dokumen yang sempurna.
+Because this template uses BibLaTeX and Polyglossia, the build sequence is critical to producing a clean document.
 
-#Opsi A: Menggunakan TeXstudio (Direkomendasikan)
-Buka file main.tex.
+### Option A: Using TeXstudio (Recommended)
 
-Pastikan konfigurasi Build pada menu Options -> Configure TeXstudio -> Build diatur sebagai berikut:
+Open `main.tex`.
 
-Default Compiler: XeLaTeX
+Make sure the Build configuration under **Options → Configure TeXstudio → Build** is set to:
 
-Default Bibliography Tool: Biber
+- **Default Compiler:** XeLaTeX
+- **Default Bibliography Tool:** Biber
 
-Tekan tombol F5 (Build & View).
+Press **F5** (Build & View).
 
-#Opsi B: Menggunakan Visual Studio Code
-Pastikan ekstensi LaTeX Workshop telah terinstal.
+### Option B: Using Visual Studio Code
 
-Buka file main.tex.
+Make sure the **LaTeX Workshop** extension is installed.
 
-Buka Command Palette (Ctrl+Shift+P), ketik "Build with recipe".
+Open `main.tex`.
 
-Pilih resep: latexmk (xelatex).
+Open the Command Palette (`Ctrl+Shift+P`), type _"Build with recipe"_.
 
-#Opsi C: Menggunakan Terminal (Command Line)
-Jalankan perintah berikut di dalam direktori proyek secara berurutan:
+Select the recipe: **latexmk (xelatex)**.
 
-Bash
+### Option C: Using the Terminal (Command Line)
 
--xelatex main.tex
--biber main
--xelatex main.tex
--xelatex main.tex
+Run the following commands in sequence from inside the project directory:
+
+```bash
+xelatex main.tex
+biber main
+xelatex main.tex
+xelatex main.tex
 ```
 
 ---
 
-## 📝 Catatan Tambahan
-Penyisipan Gambar: Letakkan file gambar pada folder assets/, kemudian panggil menggunakan perintah \includegraphics.
+## 📝 Additional Notes
 
-Tabel: Disarankan menggunakan paket booktabs (\toprule, \midrule, \bottomrule) untuk tampilan tabel yang profesional.
+- **Inserting Images:** Place image files in the `assets/` folder, then reference them with `\includegraphics`.
+- **Tables:** The `booktabs` package is recommended (`\toprule`, `\midrule`, `\bottomrule`) for a professional table appearance.
+- **Troubleshooting:** If an error occurs or the bibliography doesn't appear, delete the auxiliary files (`.aux`, `.log`, `.toc`, `.bbl`) and recompile from scratch.
 
-Troubleshooting: Jika terjadi galat (error) atau daftar pustaka tidak muncul, hapus file auxiliary (.aux, .log, .toc, .bbl) kemudian lakukan kompilasi ulang.
+---
 
-✍️ Penulis dan Kontribusi
-Dikembangkan oleh: Muhammad Dafi Al Haq Mahasiswa Program Studi Teknik Informatika Fakultas Sains dan Teknologi, Universitas Darussalam Gontor.
+## 🌱 Fork & Credits
+
+This repository is a **fork** of the original UNIDA Gontor LaTeX thesis template, maintained here by [`jaweed3`](https://github.com/jaweed3) for personal use and further customization.
+
+### Original Author
+
+- **Muhammad Dafi Al Haq** — Student of the Informatics Engineering Program, Faculty of Science and Technology, Universitas Darussalam Gontor.
+- **Muhammad Rizqi Cahyono** — Student of the Informatics Engineering Program, Faculty of Science and Technology, Universitas Darussalam Gontor.
+  Original repository: _(https://github.com/PPTIK-UNIDA-Gontor/latex-thesis-unida)_
+
+### Fork Maintainer
+
+- **[`jaweed3`](https://github.com/jaweed3)** — Fork maintainer; responsible for the English translation, structural adjustments, and any additions made in this copy.
+
+If you use this template, please consider crediting the **original author** above, as the core formatting, layout, and configuration were their work.
+
+---
+
+### ✍️ Contributing
+
+Contributions, fixes, and improvements to _this fork_ are welcome via Pull Requests. For changes that benefit the upstream project, please also open an issue/PR against the [original repository](.) so the broader community can benefit.
